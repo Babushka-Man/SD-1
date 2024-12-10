@@ -10,4 +10,6 @@ import il.ac.technion.cs.sd.grades.external.LineStorage
  */
 class StorageLibrary {
     /** TODO: Implement me! */
+    fun setup(studentGrades: Map<Int, Int>) {}
+    fun getGrade(id: Int): Int? {}
 }
