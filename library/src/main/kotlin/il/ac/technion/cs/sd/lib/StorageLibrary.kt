@@ -8,8 +8,9 @@ import il.ac.technion.cs.sd.grades.external.LineStorage
  * you will need to update the import statements in GradesInitializer.kt
  * and in GradesReader.kt.
  */
-class StorageLibrary {
-    /** TODO: Implement me! */
+object StorageLibrary {
     fun setup(studentGrades: Map<Int, Int>) {}
-    fun getGrade(id: Int): Int? {}
+    fun getGrade(id: Int): Int? {
+        TODO()
+    }
 }
