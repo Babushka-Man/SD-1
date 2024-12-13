@@ -20,9 +20,9 @@ class ParseGradesTests {
             CsvLine(listOf("524", "99")),
         )))
         val actual = mapOf(
-            "123" to "3",
-            "124" to "4",
-            "524" to "99",
+            123 to 3,
+            124 to 4,
+            524 to 99,
         )
         Assertions.assertEquals(expected, actual)
     }
