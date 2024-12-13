@@ -25,7 +25,7 @@ class GradesInitializer {
     fun setup(csvData: String) {
         // TODO("Implement me!")
 
-        val csv = CsvParser.Parse(csvData)
+        val csv = CsvParser.parse(csvData)
         val parsedGrades: Map<Int, Int> = parseGrades(csv)
         StorageLibrary.setup(parsedGrades)
     }

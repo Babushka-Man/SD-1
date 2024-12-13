@@ -7,8 +7,16 @@ package il.ac.technion.cs.sd.lib
  */
 class CsvParser {
     companion object {
-        fun Parse(csv: String) : Csv {
-            throw Exception("Implement me!")
+        private fun parseLine(line: String): CsvLine {
+            if (line.trim().isEmpty()) {
+                return CsvLine(emptyList())
+            }
+            return CsvLine(line.split(","))
+        }
+
+        fun parse(csv: String) : Csv {
+            val lines = csv.split("\n").map(::parseLine)
+            return Csv(lines)
         }
     }
 }
