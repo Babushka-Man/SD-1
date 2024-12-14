@@ -15,24 +15,66 @@ object StorageLibrary {
 
         sortedStudentGrades
             .forEach { s ->
-                if (s.key.toString().length > 9 || s.key < 0) {
-                    throw Exception(
-                        "Invalid student id: " + s.key +
-                                ". Should be positive and up to 9 digits"
-                    )
-                }
-                if (s.value.toString().length > 3 || s.value < 0)
-                {
-                    throw Exception(
-                        "Invalid student grade: " + s.value +
-                                ". Should be positive and up to 3 digits"
-                    )
-                }
+                validateId(s.key)
+                validateGrade(s.value)
                 LineStorage.appendLine(s.key.toString() + " " + s.value.toString())
             }
     }
 
-    fun getGrade(id: Int): Int? {
-        TODO()
+    fun getGrade(id: Int): Int {
+        // can make it more efficient probably
+
+        validateId(id)
+
+        val requestedStudentLine : String = findStudentLine(id)
+            ?: throw Exception("A student with id: $id doesn't exist")
+
+        return getGradeFromStudentLine(requestedStudentLine)
+    }
+
+    private fun findStudentLine(id: Int): String? {
+        var left = 0
+        var right = LineStorage.numberOfLines() - 1
+        var lastLine : String
+
+        while (left <= right) {
+            val mid = left + (right - left) / 2
+
+            lastLine = LineStorage.read(mid)
+
+            when {
+                getIdFromStudentLine(lastLine) == id -> return lastLine
+                getIdFromStudentLine(lastLine) < id -> left = mid + 1
+                else -> right = mid - 1
+            }
+        }
+
+        return null
+    }
+
+    private fun getIdFromStudentLine(line : String) : Int {
+        return line.split(' ')[0].toInt()
+    }
+
+    private fun getGradeFromStudentLine(line : String) : Int {
+        return line.split(' ')[1].toInt()
+    }
+
+    private fun validateId(id : Int) {
+        if (id.toString().length > 9 || id < 0) {
+            throw Exception(
+                "Invalid student id: " + id +
+                        ". Should be positive and up to 9 digits"
+            )
+        }
+    }
+
+    private fun validateGrade(grade : Int) {
+        if (grade.toString().length > 3 || grade < 0) {
+            throw Exception(
+                "Invalid student grade: " + grade +
+                        ". Should be positive and up to 3 digits"
+            )
+        }
     }
 }

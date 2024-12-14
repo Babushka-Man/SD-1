@@ -62,4 +62,31 @@ class StorageLibraryTest {
         studentMap[123] = 1234
         assertThrows<Exception> { StorageLibrary.setup(studentMap) }
     }
+
+    @Test
+    fun `get correct existing grade`(){
+        StorageLibrary.setup(mapOf(214 to 100, 718 to 200, 123456 to 0))
+
+        Assertions.assertEquals(100, StorageLibrary.getGrade(214))
+        Assertions.assertEquals(200, StorageLibrary.getGrade(718))
+        Assertions.assertEquals(0, StorageLibrary.getGrade(123456))
+    }
+
+    @Test
+    fun `throw on non existing id`(){
+        StorageLibrary.setup(mapOf(123 to 321))
+        assertThrows<Exception> { StorageLibrary.getGrade(1) }
+    }
+
+    @Test
+    fun `throw on invalid id - negative`(){
+        StorageLibrary.setup(mapOf(123 to 321))
+        assertThrows<Exception> { StorageLibrary.getGrade(-1) }
+    }
+
+    @Test
+    fun `throw on invalid id - more than 9 digits`(){
+        StorageLibrary.setup(mapOf(123 to 321))
+        assertThrows<Exception> { StorageLibrary.getGrade(1234567891) }
+    }
 }
