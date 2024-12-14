@@ -22,7 +22,7 @@ class LineStorageTest {
         Assertions.assertTrue(
             error < MARGIN_FOR_ERROR_IN_WAITING,
             "'" + methodName + "' must take " + milliseconds +
-            " miliseconds to run, but took " + delay.toMillis(),
+            " milliseconds to run, but took " + delay.toMillis(),
         )
     }
 
@@ -61,5 +61,12 @@ class LineStorageTest {
         val s = "Yonatan Sheterenbergerpf!!! WHat a handsome man. WHat a main. seriesly. like hell dawg can I get a hug"
         LineStorage.appendLine(s)
         assertWaited(s.length, "read") { LineStorage.read(0) }
+    }
+
+    @Test
+    fun `read of an empty line takes 0ms`() {
+        val whatACoolStringgg = ""
+        LineStorage.appendLine(whatACoolStringgg)
+        assertWaited(whatACoolStringgg.length, "read") { LineStorage.read(0) }
     }
 }
