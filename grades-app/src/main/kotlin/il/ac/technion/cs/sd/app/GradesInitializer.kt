@@ -23,8 +23,6 @@ class GradesInitializer {
 
     /** Saves csvData persistently, so that it could be run using GradesRunner. */
     fun setup(csvData: String) {
-        // TODO("Implement me!")
-
         val csv = CsvParser.parse(csvData)
         val parsedGrades: Map<Int, Int> = parseGrades(csv)
         StorageLibrary.setup(parsedGrades)
