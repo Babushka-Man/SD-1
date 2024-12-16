@@ -5,16 +5,22 @@ import org.junit.jupiter.api.Test
 
 class CsvParserTest {
     @Test
-    fun `parse on empty string returns a csv with a single empty line`() {
+    fun `last line should be ignored if empty`() {
+        val csv = CsvParser.parse("a,b\n")
+        Assertions.assertEquals(Csv(listOf(CsvLine(listOf("a", "b")))), csv)
+    }
+
+    @Test
+    fun `parse on empty string returns an empty csv`() {
         val csv = CsvParser.parse("")
-        Assertions.assertEquals(Csv(listOf(CsvLine(emptyList()))), csv)
+        Assertions.assertEquals(Csv(emptyList()), csv)
     }
 
     @Test
     fun `parse on empty lines returns csv with empty lines`() {
         val emptyLine = CsvLine(emptyList())
         val expected = Csv(listOf(emptyLine, emptyLine, emptyLine, emptyLine, emptyLine))
-        val csv = CsvParser.parse("\n".repeat(4))
+        val csv = CsvParser.parse("\n".repeat(5))
         Assertions.assertEquals(expected, csv)
     }
 

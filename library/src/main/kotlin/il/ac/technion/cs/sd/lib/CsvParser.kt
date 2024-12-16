@@ -7,6 +7,10 @@ package il.ac.technion.cs.sd.lib
  */
 class CsvParser {
     companion object {
+        private fun shouldLastBefore(lines: List<String>): Boolean {
+            return lines.isNotEmpty() && lines.last().isEmpty()
+        }
+
         private fun parseLine(line: String): CsvLine {
             if (line.trim().isEmpty()) {
                 return CsvLine(emptyList())
@@ -15,8 +19,10 @@ class CsvParser {
         }
 
         fun parse(csv: String) : Csv {
-            val lines = csv.split("\n").map(::parseLine)
-            return Csv(lines)
+            val lines = csv.split("\n")
+            val skipped = (if (shouldLastBefore(lines)) lines.subList(0, lines.lastIndex) else lines)
+            val parsed = skipped.map(CsvParser::parseLine)
+            return Csv(parsed)
         }
     }
 }
