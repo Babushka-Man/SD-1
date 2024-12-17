@@ -15,7 +15,7 @@ class CsvParser {
             if (line.trim().isEmpty()) {
                 return CsvLine(emptyList())
             }
-            return CsvLine(line.split(","))
+            return CsvLine(line.split(",").map { s -> s.trim {c -> " \r\n".contains(c)} })
         }
 
         fun parse(csv: String) : Csv {

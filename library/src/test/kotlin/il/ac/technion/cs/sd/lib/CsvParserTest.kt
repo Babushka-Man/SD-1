@@ -43,4 +43,30 @@ class CsvParserTest {
         Assertions.assertEquals("21462623", csv.lines[2].values[0])
         Assertions.assertEquals("beard", csv.lines[2].values[1])
     }
+
+    @Test
+    fun `spaces in CSV do not lead to failure`(){
+        val input = """
+            yonatan ,elm
+            yonatan, java
+            21462623 , beard
+            21462  ,    coolBeard
+            222  ,    noBeard 
+        """.trimIndent()
+        val csv = CsvParser.parse(input)
+        // Test the lengths!
+        Assertions.assertEquals(5, csv.lines.size)
+        csv.lines.forEach { Assertions.assertEquals(2, it.values.size) }
+        // Test the values!
+        Assertions.assertEquals("yonatan", csv.lines[0].values[0])
+        Assertions.assertEquals("elm", csv.lines[0].values[1])
+        Assertions.assertEquals("yonatan", csv.lines[1].values[0])
+        Assertions.assertEquals("java", csv.lines[1].values[1])
+        Assertions.assertEquals("21462623", csv.lines[2].values[0])
+        Assertions.assertEquals("beard", csv.lines[2].values[1])
+        Assertions.assertEquals("21462", csv.lines[3].values[0])
+        Assertions.assertEquals("coolBeard", csv.lines[3].values[1])
+        Assertions.assertEquals("222", csv.lines[4].values[0])
+        Assertions.assertEquals("noBeard", csv.lines[4].values[1])
+    }
 }
