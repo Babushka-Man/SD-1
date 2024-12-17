@@ -8,11 +8,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class GradesReaderTests {
-    @BeforeEach
-    fun `clear storage`() {
-        LineStorage.reset()
-    }
-
     @Test
     fun `reader reads grades from StorageLibrary`() {
         StorageLibrary.setup(mapOf(

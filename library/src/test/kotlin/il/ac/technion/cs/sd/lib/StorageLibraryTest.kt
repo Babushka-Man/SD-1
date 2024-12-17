@@ -5,12 +5,6 @@ import org.junit.jupiter.api.*
 
 /** Use this class to test your library implementation */
 class StorageLibraryTest {
-
-    @BeforeEach
-    fun `reset line storage`(){
-        LineStorage.reset()
-    }
-
     @Test
     fun `setup includes students in a sorted order`(){
         val studentMap : MutableMap<Int, Int> = mutableMapOf()

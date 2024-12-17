@@ -13,6 +13,10 @@ object StorageLibrary {
     fun setup(studentGrades: Map<Int, Int>) {
         val sortedStudentGrades = studentGrades.toSortedMap()
 
+        // In case we are using the dummy duplicate LineStorage, we must support multiple calls
+        // to `setup`
+        LineStorageInner.reset()
+
         sortedStudentGrades
             .forEach { s ->
                 validateId(s.key)

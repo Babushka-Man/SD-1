@@ -1,5 +1,7 @@
 package il.ac.technion.cs.sd.grades.external
 
+import il.ac.technion.cs.sd.lib.LineStorageInner
+
 /**
  * This package and class override the external library
  * which was automatically imported to the project (you can view it under
@@ -15,30 +17,19 @@ package il.ac.technion.cs.sd.grades.external
  */
 class LineStorage {
     companion object {
-        private val lines: MutableList<String> = mutableListOf()
-
         /** Appends a line to the END of the file */
         fun appendLine(line: String) {
-            lines.add(line)
+            LineStorageInner.appendLine(line)
         }
 
         /** Returns the line at index lineNumber (0-indexed) */
         fun read(lineNumber: Int): String {
-            val line = lines[lineNumber]
-            val delay: Long = line.length.toLong()
-            Thread.sleep(delay)
-            return line
+            return LineStorageInner.read(lineNumber)
         }
 
         /** Returns the total number of lines in the file */
         fun numberOfLines(): Int {
-            Thread.sleep(100)
-            return lines.size
-        }
-
-        /** This function is for clearing the state before each test! */
-        fun reset() {
-            lines.clear()
+            return LineStorageInner.numberOfLines()
         }
     }
 }

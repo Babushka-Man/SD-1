@@ -27,8 +27,8 @@ class LineStorageTest {
     }
 
     @BeforeEach
-    fun `reset LineStorage`() {
-        LineStorage.reset()
+    fun `reset our dummy dum dum`() {
+        LineStorageInner.reset()
     }
 
     @Test
